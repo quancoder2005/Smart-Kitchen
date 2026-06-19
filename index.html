@@ -4,79 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HỆ THỐNG GIÁM SÁT NHÀ BẾP THÔNG MINH</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chart.js Date Adapter (for time scales) -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="CSS/style.css">
 </head>
-<body class="text-slate-100 min-h-screen transition-all duration-500" id="main-body">
+<body class="text-slate-800 min-h-screen transition-all duration-500" id="main-body">
 
     <div class="container mx-auto px-4 py-6 max-w-6xl">
         
-        <!-- HEADER BAR -->
-        <header class="flex flex-col md:flex-row justify-between items-center bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-slate-700/50 shadow-xl mb-6">
+        <header class="flex flex-col md:flex-row justify-between items-center bg-white/90 backdrop-blur-md p-5 rounded-2xl border border-slate-200 shadow-sm mb-6">
             <div class="flex items-center gap-3 mb-4 md:mb-0">
-                <div class="bg-cyan-500/10 p-3 rounded-xl border border-cyan-500/30">
-                    <i class="fa-solid fa-fire-burner text-2xl text-cyan-400"></i>
+                <div class="bg-cyan-50 p-3 rounded-xl border border-cyan-200">
+                    <i class="fa-solid fa-fire-burner text-2xl text-cyan-600"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white">NHÀ BẾP THÔNG MINH</h1>
-                    <p class="text-xs text-slate-400">Hệ thống giám sát an toàn & phòng chống hỏa hoạn</p>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-slate-900">NHÀ BẾP THÔNG MINH</h1>
+                    <p class="text-xs text-slate-500">Hệ thống giám sát an toàn & phòng chống hỏa hoạn</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-4">
-                <!-- Status Mạch ESP32 -->
-                <div class="flex items-center gap-2 bg-slate-900/60 px-4 py-2 rounded-xl border border-slate-700/80">
+                <div class="flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl border border-slate-200">
                     <span id="connection-dot" class="w-3 h-3 rounded-full bg-red-500 pulse-active"></span>
-                    <span id="connection-status" class="text-xs font-semibold text-slate-400">Đang kiểm tra kết nối...</span>
+                    <span id="connection-status" class="text-xs font-semibold text-slate-600">Đang kiểm tra kết nối...</span>
                 </div>
-                <!-- Thời gian hệ thống -->
                 <div class="hidden sm:block text-right">
-                    <p id="realtime-clock" class="text-sm font-medium text-slate-300">--:--:--</p>
-                    <p id="realtime-date" class="text-[10px] text-slate-500">dd/mm/yyyy</p>
+                    <p id="realtime-clock" class="text-sm font-semibold text-slate-700">--:--:--</p>
+                    <p id="realtime-date" class="text-[10px] text-slate-400 font-medium">dd/mm/yyyy</p>
                 </div>
             </div>
         </header>
 
-        <!-- KHU VỰC CẢNH BÁO CHÁY NỔI BẬT (ẨN MẶC ĐỊNH) -->
-        <div id="fire-banner" class="hidden bg-red-600 border-2 border-red-400 text-white p-6 rounded-2xl shadow-2xl mb-6 text-center pulse-active">
+        <div id="fire-banner" class="hidden bg-red-500 border border-red-400 text-white p-6 rounded-2xl shadow-lg mb-6 text-center pulse-active">
             <i class="fa-solid fa-triangle-exclamation text-5xl mb-3 text-yellow-300"></i>
             <h2 class="text-2xl md:text-3xl font-extrabold tracking-wider">CẢNH BÁO: HỎA HOẠN KHẨN CẤP!</h2>
             <p class="text-sm md:text-base mt-2 font-medium">Phát hiện nguồn nhiệt lớn, khói ga rò rỉ vượt ngưỡng an toàn hoặc có lửa thực tế!</p>
-            <div class="mt-4 flex justify-center gap-6 text-xs md:text-sm font-bold bg-black/30 py-2 px-4 rounded-lg inline-block mx-auto">
+            <div class="mt-4 flex justify-center gap-6 text-xs md:text-sm font-bold bg-black/20 py-2 px-4 rounded-lg inline-block mx-auto">
                 <span>HỆ THỐNG PHÒNG CHÁY: TỰ ĐỘNG BẬT QUẠT & CÒI HÚ</span>
             </div>
         </div>
 
-        <!-- 3 KHỐI GIÁM SÁT CẢM BIẾN CHÍNH -->
         <main class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             
-            <!-- THÔNG SỐ KHÍ GAS (CHIẾM VỊ TRÍ ĐẦU TIÊN TO NHẤT) -->
-            <div class="bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-lg flex flex-col justify-between relative overflow-hidden group hover:border-yellow-500/30 transition-all duration-300">
-                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-smog text-8xl text-yellow-400"></i>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:border-yellow-500/50 transition-all duration-300">
+                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-smog text-8xl text-yellow-600"></i>
                 </div>
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm font-semibold tracking-wide text-slate-400 uppercase">Nồng Độ Khí Gas</span>
-                    <span id="gas-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20">AN TOÀN</span>
+                    <span class="text-sm font-bold tracking-wide text-slate-500 uppercase">Nồng Độ Khí Gas</span>
+                    <span id="gas-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-50 text-green-600 border border-green-200">AN TOÀN</span>
                 </div>
                 <div class="my-2">
-                    <span id="val-gas" class="text-5xl font-black text-green-400 tracking-tight">0</span>
+                    <span id="val-gas" class="text-5xl font-black text-green-600 tracking-tight">0</span>
                     <span class="text-lg font-bold text-slate-400 ml-1">PPM</span>
                 </div>
                 <div class="mt-4">
-                    <!-- Progress Bar Đồ Hoạ giống trên màn hình TFT -->
-                    <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden p-[1px] border border-slate-700">
+                    <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden p-[1px] border border-slate-200">
                         <div id="gas-progress" class="bg-green-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                     </div>
-                    <div class="flex justify-between text-[10px] text-slate-500 mt-2">
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-2 font-medium">
                         <span>0 PPM</span>
                         <span>Ngưỡng cảnh báo: 300 PPM</span>
                         <span>9999 PPM</span>
@@ -84,145 +73,131 @@
                 </div>
             </div>
 
-            <!-- NHIỆT ĐỘ -->
-            <div class="bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-lg flex flex-col justify-between relative overflow-hidden group hover:border-orange-500/30 transition-all duration-300">
-                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-temperature-half text-8xl text-orange-400"></i>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:border-orange-500/50 transition-all duration-300">
+                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-temperature-half text-8xl text-orange-600"></i>
                 </div>
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm font-semibold tracking-wide text-slate-400 uppercase">Nhiệt Độ Bếp</span>
-                    <span id="temp-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">MÁT</span>
+                    <span class="text-sm font-bold tracking-wide text-slate-500 uppercase">Nhiệt Độ Bếp</span>
+                    <span id="temp-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-5 tracking-wide text-blue-600 border border-blue-200">MÁT MẺ</span>
                 </div>
                 <div class="my-2">
-                    <span id="val-temp" class="text-5xl font-black text-orange-400 tracking-tight">0.0</span>
+                    <span id="val-temp" class="text-5xl font-black text-orange-500 tracking-tight">0.0</span>
                     <span class="text-lg font-bold text-slate-400 ml-1">°C</span>
                 </div>
-                <div class="mt-4 text-xs text-slate-400 flex items-center gap-1.5 bg-slate-900/40 p-2.5 rounded-xl border border-slate-700/30">
-                    <!-- <i class="fa-solid fa-circle-info text-slate-500"></i> -->
-                    <!-- <span>Tự động bật quạt tản nhiệt khi &gt; 50°C</span> -->
+                <div class="mt-4 text-xs text-slate-400 flex items-center gap-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
                 </div>
             </div>
 
-            <!-- ĐỘ ẨM -->
-            <div class="bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-lg flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/30 transition-all duration-300">
-                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-droplet text-8xl text-blue-400"></i>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/50 transition-all duration-300">
+                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-droplet text-8xl text-blue-600"></i>
                 </div>
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm font-semibold tracking-wide text-slate-400 uppercase">Độ Ẩm Không Khí</span>
-                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">ỔN ĐỊNH</span>
+                    <span class="text-sm font-bold tracking-wide text-slate-500 uppercase">Độ Ẩm Không Khí</span>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200">ỔN ĐỊNH</span>
                 </div>
                 <div class="my-2">
-                    <span id="val-humi" class="text-5xl font-black text-blue-400 tracking-tight">0.0</span>
+                    <span id="val-humi" class="text-5xl font-black text-blue-600 tracking-tight">0.0</span>
                     <span class="text-lg font-bold text-slate-400 ml-1">%</span>
                 </div>
-                <div class="mt-4 text-xs text-slate-400 flex items-center gap-1.5 bg-slate-900/40 p-2.5 rounded-xl border border-slate-700/30">
-                    <i class="fa-solid fa-fire text-slate-500"></i>
+                <div class="mt-4 text-xs text-slate-600 font-medium flex items-center gap-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    <i class="fa-solid fa-fire text-slate-400"></i>
                     <span id="val-flame-txt">Cảm biến lửa: Đang quét...</span>
                 </div>
             </div>
 
         </main>
 
-        <!-- PHẦN ĐIỀU KHIỂN & BIỂU ĐỒ TRỰC QUAN -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- KHU VỰC ĐIỀU KHIỂN THIẾT BỊ (CHỮA CHÁY) -->
-            <section class="lg:col-span-5 bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-lg flex flex-col justify-between">
+            <section class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-4 mb-5">
-                        <h3 class="font-bold text-base text-white tracking-wide flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-cyan-400"></i>ĐIỀU KHIỂN THIẾT BỊ
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
+                        <h3 class="font-bold text-base text-slate-800 tracking-wide flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-cyan-600"></i>ĐIỀU KHIỂN THIẾT BỊ
                         </h3>
                         
-                        <!-- TOGGLE SWITCH CHẾ ĐỘ AUTO / MANUAL -->
-                        <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700">
-                            <span class="text-[10px] font-bold tracking-wider text-slate-400" id="mode-text">AUTO</span>
+                        <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+                            <span class="text-[10px] font-bold tracking-wider text-slate-600" id="mode-text">AUTO</span>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="mode-toggle" class="sr-only peer">
-                                <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
+                                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500"></div>
                             </label>
                         </div>
                     </div>
 
-                    <!-- THÔNG BÁO CHẾ ĐỘ TỰ ĐỘNG ĐANG KHÓA NÚT -->
-                    <div id="auto-lock-alert" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs p-3 rounded-xl mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-lock"></i>
-                        <!-- <span>Đang ở chế độ AUTO. Các nút điều khiển thủ công sẽ bị tạm khóa!</span> -->
+                    <div id="auto-lock-alert" class="bg-amber-50 border border-amber-200 text-amber-700 text-xs p-3 rounded-xl mb-4 flex items-center gap-2 font-medium">
+                        <i class="fa-solid fa-lock text-amber-500"></i>
+                        <span>Chế độ AUTO đang bật. Thiết bị tự động vận hành.</span>
                     </div>
 
-                    <!-- DANH SÁCH THIẾT BỊ ĐIỀU KHIỂN -->
                     <div class="space-y-4">
                         
-                        <!-- QUẠT HÚT KHÓI (RELAY 1) -->
-                        <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-xl border border-slate-700/30">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                             <div class="flex items-center gap-3">
-                                <div id="fan-icon-bg" class="bg-slate-800 p-2.5 rounded-lg border border-slate-700">
-                                    <i id="fan-icon" class="fa-solid fa-fan text-slate-400"></i>
+                                <div id="fan-icon-bg" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                    <i id="fan-icon" class="fa-solid fa-lightbulb text-slate-400"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold">Đèn</h4>
-                                    <p class="text-[10px] text-slate-500">Chiếu sáng không gian bếp</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Đèn</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium">Chiêu sáng bếp</p>
                                 </div>
                             </div>
-                            <button id="btn-relay1" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-700 text-slate-400 cursor-not-allowed" disabled>OFF</button>
+                            <button id="btn-relay1" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-200 text-slate-400 cursor-not-allowed" disabled>OFF</button>
                         </div>
 
-                        <!-- MÁY BƠM PHUN SƯƠNG (RELAY 2) -->
-                        <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-xl border border-slate-700/30">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                             <div class="flex items-center gap-3">
-                                <div id="pump-icon-bg" class="bg-slate-800 p-2.5 rounded-lg border border-slate-700">
-                                    <i id="pump-icon" class="fa-solid fa-faucet-drip text-slate-400"></i>
+                                <div id="pump-icon-bg" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                    <i id="pump-icon" class="fa-solid fa-fan text-slate-400"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold">Quạt</h4>
-                                    <p class="text-[10px] text-slate-500">Làm mát, thông gió</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Quạt</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium">Làm mát, thông gió</p>
                                 </div>
                             </div>
-                            <button id="btn-relay2" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-700 text-slate-400 cursor-not-allowed" disabled>OFF</button>
+                            <button id="btn-relay2" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-200 text-slate-400 cursor-not-allowed" disabled>OFF</button>
                         </div>
 
-                        <!-- CÒI BÁO ĐỘNG (BUZZER) -->
-                        <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-xl border border-slate-700/30">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                             <div class="flex items-center gap-3">
-                                <div id="buzzer-icon-bg" class="bg-slate-800 p-2.5 rounded-lg border border-slate-700">
+                                <div id="buzzer-icon-bg" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
                                     <i id="buzzer-icon" class="fa-solid fa-volume-high text-slate-400"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-semibold">Còi Báo Động</h4>
-                                    <p class="text-[10px] text-slate-500">Phát âm thanh cảnh báo sự cố</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Còi Báo Động</h4>
+                                    <p class="text-[10px] text-slate-400 font-medium">Phát âm thanh cảnh báo</p>
                                 </div>
                             </div>
-                            <button id="btn-buzzer" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-700 text-slate-400 cursor-not-allowed" disabled>OFF</button>
+                            <button id="btn-buzzer" class="px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-200 text-slate-400 cursor-not-allowed" disabled>OFF</button>
                         </div>
 
                     </div>
                 </div>
 
-                <!-- ĐIỀU KHIỂN CỬA THÔNG GIÓ (SERVO) -->
-                <div class="mt-6 border-t border-slate-700/50 pt-5">
+                <div class="mt-6 border-t border-slate-100 pt-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-slate-400">Góc Mở Cửa Thông Gió (Servo)</span>
-                        <span id="servo-deg-val" class="text-sm font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">0°</span>
+                        <span class="text-xs font-bold text-slate-500">Góc Mở Cửa Thông Gió (Servo)</span>
+                        <span id="servo-deg-val" class="text-sm font-bold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">0°</span>
                     </div>
-                    <input type="range" id="servo-slider" min="0" max="180" value="0" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500 disabled:opacity-50" disabled>
-                    <div class="flex justify-between text-[10px] text-slate-500 mt-1">
-                        <span>Đóng kín</span>
-                        <span>Mở hé</span>
-                        <span>Mở vừa</span>
-                        <span>Mở toang</span>
+                    <input type="range" id="servo-slider" min="0" max="180" value="0" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-cyan-600 disabled:opacity-50" disabled>
+                    <div class="flex justify-between text-[10px] text-slate-400 font-semibold mt-1">
+                        <span>Mở toang (0°)</span>
+                        <span>Mở vừa (60°)</span>
+                        <span>Mở hé (120°)</span>
+                        <span>Đóng kín (180°)</span>
                     </div>
                 </div>
 
             </section>
 
-            <!-- BIỂU ĐỒ QUÁ TRÌNH LỊCH SỬ -->
-            <section class="lg:col-span-7 bg-slate-800/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-lg flex flex-col justify-between">
-                <div class="flex justify-between items-center border-b border-slate-700/50 pb-4 mb-5">
-                    <h3 class="font-bold text-base text-white tracking-wide flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-cyan-400"></i> BIỂU ĐỒ BIẾN THIÊN REALTIME
+            <section class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
+                    <h3 class="font-bold text-base text-slate-800 tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-cyan-600"></i> BIỂU ĐỒ BIẾN THIÊN REALTIME
                     </h3>
-                    <div class="text-[10px] bg-slate-900/80 border border-slate-700 text-slate-400 font-semibold px-2.5 py-1 rounded-full">
+                    <div class="text-[10px] bg-slate-100 border border-slate-200 text-slate-500 font-bold px-2.5 py-1 rounded-full">
                         Cập nhật liên tục
                     </div>
                 </div>
@@ -233,69 +208,11 @@
 
         </div>
 
-        <!-- FOOTER BAR -->
-        <footer class="mt-6 text-center py-4 text-[11px] text-slate-500 border-t border-slate-800">
+        <footer class="mt-6 text-center py-4 text-[11px] text-slate-400 font-medium border-t border-slate-200">
             <p>© 2026 Hệ thống giám sát Nhà Bếp Thông Minh IOT - Thiết kế đồ án bởi Quân Nguyễn và Tây Trần</p>
         </footer>
 
     </div>
-
-    <!-- KHỞI TẠO FIREBASE SDK DẠNG MODULES -->
-    <script type="module" src="JS/script.js"></script>
-</body>
-</html>
-<!-- 
-    <div class="dashboard">
-        <div class="card">
-            <h2><i class="fa-solid fa-temperature-three-quarters"></i>Nhiệt độ</h2>
-            <div class="sensor-item">
-                <span>Hiện tại:</span>
-                <span id="temp-val" class="sensor-data">-- °C</span>
-            </div>
-        </div>
-        <div class="card">
-            <h2><i class="fa-solid fa-droplet"></i>Độ ẩm</h2>
-            <div class="sensor-item">
-                <span>Hiện tại:</span>
-                <span id="hum-val" class="sensor-data">-- %</span>
-            </div>
-        </div>
-        <div class="card">
-            <h2><i class="fa-solid fa-smog"></i>Nồng độ Gas</h2>
-            <div class="sensor-item">
-                <span>Hiện tại:</span>
-                <span id="gas-val" class="sensor-data">--</span>
-            </div>
-        </div>
-        <div class="card">
-            <h2><i class="fa-solid fa-fire-flame-curved"></i>Cảnh báo cháy</h2>
-            <div id="fire-status" class="status-alert alert-inactive">An Toàn</div>
-        </div>
-
-        <div class="card" style="grid-column: span 2;">
-            <h2><i class="fa-solid fa-sliders"></i>Bảng điều khiển</h2>
-            <div class="control-item">
-                <span><i class="fa-solid fa-robot"></i>Chế độ tự động</span>
-                <label class="switch"><input type="checkbox" id="auto-mode"><span class="slider"></span></label>
-            </div>
-            <div class="control-item">
-                <span><i class="fa-solid fa-lightbulb"></i>Đèn (Relay 1)</span>
-                <label class="switch"><input type="checkbox" id="relay1-btn"><span class="slider"></span></label>
-            </div>
-            <div class="control-item">
-                <span><i class="fa-solid fa-fan"></i>Quạt (Relay 2)</span>
-                <label class="switch"><input type="checkbox" id="relay2-btn"><span class="slider"></span></label>
-            </div>
-            <div class="control-item">
-                <span><i class="fa-solid fa-bell"></i>Còi báo (Buzzer)</span>
-                <label class="switch"><input type="checkbox" id="buzzer-btn"><span class="slider"></span></label>
-            </div>
-            <div class="control-item">
-                <span><i class="fa-solid fa-door-open"></i>Góc Servo: <span id="servo-val">0</span>°</span>
-            </div>
-            <input type="range" id="servo-pos" min="0" max="180" value="0" style="width: 100%; margin-top: 10px;">
-        </div>
-    </div> -->
 
     <script type="module" src="JS/script.js"></script>
 </body>

@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// 🌟 QUÂN ƠI: Cấu hình Firebase của dự án nhà bếp
+// 🌟 Cấu hình Firebase của dự án nhà bếp
 const firebaseConfig = {
     apiKey: "AIzaSyCaBtYNbGof7YT44ht4Q3f7WH7uTIC-b44",
     authDomain: "nckh-27a54.firebaseapp.com", 
@@ -35,7 +35,6 @@ function batCoiBaoDongWeb() {
     }
 
     let toggle = true;
-    // Vòng lặp phát âm thanh ngắt quãng tít...tít... liên tục mỗi 300ms
     alarmInterval = setInterval(() => {
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
@@ -44,13 +43,10 @@ function batCoiBaoDongWeb() {
         let oscillator = audioCtx.createOscillator();
         let gainNode = audioCtx.createGain();
 
-        oscillator.type = 'sine'; // Sóng sine giúp tiếng kêu thanh và vang
-        
-        // Hoán đổi tần số giữa 1000Hz và 600Hz liên tục để giả lập còi cứu hỏa
+        oscillator.type = 'sine'; 
         oscillator.frequency.setValueAtTime(toggle ? 1000 : 600, audioCtx.currentTime);
         toggle = !toggle;
 
-        // Thiết lập âm lượng (0.2 tức là 20% âm lượng, tránh bị chói tai khi test)
         gainNode.gain.setValueAtTime(0.7, audioCtx.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
 
@@ -58,7 +54,7 @@ function batCoiBaoDongWeb() {
         gainNode.connect(audioCtx.destination);
 
         oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.25); // Kêu trong 0.25 giây rồi ngắt
+        oscillator.stop(audioCtx.currentTime + 0.25); 
     }, 300); 
 }
 
@@ -105,17 +101,17 @@ const realtimeChart = new Chart(ctx, {
         maintainAspectRatio: false,
         scales: {
             x: {
-                grid: { color: 'rgba(51, 65, 85, 0.3)' }, 
-                ticks: { color: '#94a3b8', font: { size: 10 } }
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }, 
+                ticks: { color: '#475569', font: { size: 10, weight: 'bold' } } 
             },
             'y-gas': {
                 type: 'linear',
                 position: 'left',
                 min: 0,
                 max: 1000, 
-                grid: { color: 'rgba(51, 65, 85, 0.5)' }, 
-                ticks: { color: '#22c55e', font: { size: 10 } },
-                title: { display: true, text: 'Gas (PPM)', color: '#22c55e', font: { size: 10 } }
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }, 
+                ticks: { color: '#16a34a', font: { size: 10, weight: 'bold' } },
+                title: { display: true, text: 'Gas (PPM)', color: '#16a34a', font: { size: 10, weight: 'bold' } }
             },
             'y-temp': {
                 type: 'linear',
@@ -123,13 +119,13 @@ const realtimeChart = new Chart(ctx, {
                 min: 0,
                 max: 100, 
                 grid: { drawOnChartArea: false }, 
-                ticks: { color: '#f97316', font: { size: 10 } },
-                title: { display: true, text: 'Nhiệt độ (°C)', color: '#f97316', font: { size: 10 } }
+                ticks: { color: '#ea580c', font: { size: 10, weight: 'bold' } },
+                title: { display: true, text: 'Nhiệt độ (°C)', color: '#ea580c', font: { size: 10, weight: 'bold' } }
             }
         },
         plugins: {
             legend: {
-                labels: { color: '#f1f5f9', font: { size: 11, weight: 'bold' } }
+                labels: { color: '#1e293b', font: { size: 11, weight: 'bold' } } 
             }
         }
     }
@@ -179,15 +175,15 @@ onValue(kitchenRef, (snapshot) => {
         if (rawGas > 300) { 
             document.getElementById("val-gas").className = "text-5xl font-black text-red-500 tracking-tight transition-all duration-300";
             if (gasProgress) gasProgress.className = "bg-red-500 h-full rounded-full transition-all duration-500";
-            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20"; gasBadge.innerText = "NGUY HIỂM"; }
+            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-100 text-red-600 border border-red-200"; gasBadge.innerText = "NGUY HIỂM"; }
         } else if (rawGas > 150) { 
             document.getElementById("val-gas").className = "text-5xl font-black text-yellow-500 tracking-tight transition-all duration-300";
             if (gasProgress) gasProgress.className = "bg-yellow-500 h-full rounded-full transition-all duration-500";
-            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"; gasBadge.innerText = "CÓ MÙI GAS NHẸ"; }
+            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-100 text-yellow-600 border border-yellow-200"; gasBadge.innerText = "CÓ MÙI GAS NHẸ"; }
         } else {
-            document.getElementById("val-gas").className = "text-5xl font-black text-green-400 tracking-tight transition-all duration-300";
+            document.getElementById("val-gas").className = "text-5xl font-black text-green-600 tracking-tight transition-all duration-300";
             if (gasProgress) gasProgress.className = "bg-green-500 h-full rounded-full transition-all duration-500";
-            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20"; gasBadge.innerText = "AN TOÀN"; }
+            if (gasBadge) { gasBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-600 border border-green-200"; gasBadge.innerText = "AN TOÀN"; }
         }
 
         // 2. Phân tích Nhiệt độ
@@ -196,13 +192,13 @@ onValue(kitchenRef, (snapshot) => {
         const tempBadge = document.getElementById("temp-badge");
         if (tempBadge) {
             if (temp > 50.0) {
-                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20";
+                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-100 text-red-600 border border-red-200";
                 tempBadge.innerText = "QUÁ NÓNG";
             } else if (temp > 35.0) {
-                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20";
+                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-100 text-yellow-600 border border-yellow-200";
                 tempBadge.innerText = "HƠI ẤM";
             } else {
-                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20";
+                tempBadge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-600 border border-blue-200";
                 tempBadge.innerText = "MÁT MẺ";
             }
         }
@@ -215,28 +211,25 @@ onValue(kitchenRef, (snapshot) => {
         const flameDetected = data.flame === true || data.flame === "true" || data.flame === 1 || data.flame === "1";
         const flameTxt = document.getElementById("val-flame-txt");
         
-        // 5. PHÒNG CHÁY KHẨN CẤP & PHÁT TIẾNG CÒI WEB HÚ LẬP TỨC
+        // 5. 🛑 XỬ LÝ LOGIC PHÒNG CHÁY KHẨN CẤP LÊN GIAO DIỆN WEB 🛑
         const canhBaoChay = data.canh_bao_chay === true || data.canh_bao_chay === "true" || data.canh_bao_chay === 1 || data.canh_bao_chay === "1";
         
         if (flameDetected || canhBaoChay) {
-            if (flameTxt) flameTxt.innerHTML = `<span class="text-red-500 font-black pulse-active flex items-center gap-1 text-xl"><i class="fa-solid fa-fire-flame-curved animate-bounce"></i> NGUY HIỂM: CÓ CHÁY NHA BẾP!</span>`;
-            if (mainBody) mainBody.className = "text-slate-100 min-h-screen fire-emergency transition-all duration-100";
+            if (flameTxt) flameTxt.innerHTML = `<span class="text-red-600 font-black pulse-active flex items-center gap-1 text-base"><i class="fa-solid fa-fire-flame-curved animate-bounce"></i> NGUY HIỂM: CÓ CHÁY!</span>`;
+            if (mainBody) mainBody.className = "text-slate-800 min-h-screen fire-emergency transition-all duration-100";
             if (fireBanner) fireBanner.classList.remove("hidden");
             
-            // 🔊 KÍCH HOẠT CÒI HÚ MÁY TÍNH REATIME KHÔNG ĐỘ TRỄ
+            // 🔊 Kích hoạt còi hú trình duyệt máy tính
             batCoiBaoDongWeb();
-
-            // Nếu đang Manual, tự kích hoạt Buzzer phần cứng lên Firebase luôn để mạch hú còi đồng bộ
-            const buzzerBtn = document.getElementById("btn-buzzer");
-            if (buzzerBtn && buzzerBtn.innerText === "OFF" && !isAutoMode) {
-                updateControl('buzzer_btn', true);
-            }
+            
+            // 🛠️ ĐÃ XÓA HOÀN TOÀN CÁC HÀM ÉP TRẠNG THÁI (forceUIState) THEO Ý QUÂN
+            
         } else {
-            if (flameTxt) flameTxt.innerHTML = `<span class="text-green-400 flex items-center gap-1"><i class="fa-solid fa-shield-halved"></i> Không phát hiện lửa</span>`;
-            if (mainBody) mainBody.className = "text-slate-100 min-h-screen transition-all duration-500";
+            if (flameTxt) flameTxt.innerHTML = `<span class="text-green-600 flex items-center gap-1"><i class="fa-solid fa-shield-halved"></i> Không phát hiện lửa</span>`;
+            if (mainBody) mainBody.className = "text-slate-800 min-h-screen transition-all duration-500";
             if (fireBanner) fireBanner.classList.add("hidden");
 
-            // 🔇 TẮT CÒI HÚ KHI KHÔNG CÒN NGUY HIỂM
+            // 🔊 Tắt còi hú trình duyệt máy tính khi an toàn
             tatCoiBaoDongWeb();
         }
 
@@ -270,7 +263,7 @@ onValue(controlRef, (snapshot) => {
             manualButtons.forEach(btn => {
                 if (btn) {
                     btn.disabled = true;
-                    btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-700 text-slate-500 cursor-not-allowed";
+                    btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed";
                 }
             });
             if (servoSlider) servoSlider.disabled = true;
@@ -280,6 +273,8 @@ onValue(controlRef, (snapshot) => {
             if (servoSlider) servoSlider.disabled = false;
         }
 
+        // 🌟 XÓA BỎ LỆNH CHẶN (fireBannerIsHidden) CỦA PHIÊN BẢN CŨ 🌟
+        // Các nút bấm bây giờ tự do lắng nghe trực tiếp từ Firebase để chuyển màu Xanh/Xám (ON/OFF) bất cứ lúc nào!
         updateButtonState("btn-relay1", "fan-icon", "fan-icon-bg", data.relay1_btn, "fa-lightbulb", "pulse"); 
         updateButtonState("btn-relay2", "pump-icon", "pump-icon-bg", data.relay2_btn, "fa-fan", "spin"); 
         updateButtonState("btn-buzzer", "buzzer-icon", "buzzer-icon-bg", data.buzzer_btn, "fa-volume-high", "pulse");
@@ -308,25 +303,23 @@ function updateButtonState(btnId, iconId, bgId, state, baseIconClass, effectClas
         if (!isAutoMode) {
             btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-green-500 hover:bg-green-600 text-white shadow-md shadow-green-500/20 cursor-pointer";
         } else {
-            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-green-500/30 text-green-400/80 cursor-not-allowed";
+            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-green-100 text-green-600 border border-green-200 cursor-not-allowed";
         }
-        bg.className = "bg-green-500/10 p-2.5 rounded-lg border border-green-500/30";
+        bg.className = "bg-green-50 p-2.5 rounded-lg border border-green-200";
 
         if (effectClass === "spin") {
-            icon.className = `fa-solid ${baseIconClass} text-green-400 animate-spin`;
-        } else if (effectClass === "bounce") {
-            icon.className = `fa-solid ${baseIconClass} text-green-400 animate-bounce`;
+            icon.className = `fa-solid ${baseIconClass} text-green-600 animate-spin`;
         } else {
-            icon.className = `fa-solid ${baseIconClass} text-green-400 pulse-active`;
+            icon.className = `fa-solid ${baseIconClass} text-green-600 pulse-active`;
         }
     } else {
         btn.innerText = "OFF";
         if (!isAutoMode) {
-            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-900 hover:bg-slate-900/80 text-slate-400 border border-slate-700 cursor-pointer";
+            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-sm cursor-pointer";
         } else {
-            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-800 text-slate-500 cursor-not-allowed";
+            btn.className = "px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed";
         }
-        bg.className = "bg-slate-800 p-2.5 rounded-lg border border-slate-700";
+        bg.className = "bg-slate-50 p-2.5 rounded-lg border border-slate-200";
         icon.className = `fa-solid ${baseIconClass} text-slate-400`;
     }
 }
@@ -393,7 +386,7 @@ function updateConnectionState(isActive) {
     if (isActive) {
         dot.className = "w-3 h-3 rounded-full bg-green-500 pulse-active";
         text.innerText = "Mạch Online";
-        text.className = "text-xs font-semibold text-green-400";
+        text.className = "text-xs font-semibold text-slate-600";
     } else {
         dot.className = "w-3 h-3 rounded-full bg-red-500";
         text.innerText = "Mạch Offline";

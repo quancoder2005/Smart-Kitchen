@@ -2,13 +2,19 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #0f172a;
+    /* 🌟 ĐÃ ĐỔI: Màu nền sáng (Xám trắng Slate 50) */
+    background-color: #f8fafc; 
 }
 
-/* Hiệu ứng chớp nháy báo cháy khẩn cấp */
 @keyframes fireAlert {
-    0%, 100% { background-color: #0f172a; }
-    50% { background-color: #7f1d1d; }
+    0%, 100% { 
+        background-color: #f8fafc; /* Nền sáng bình thường */
+        color: #1e293b;            /* Chữ tối bình thường */
+    }
+    50% { 
+        background-color: #991b1b; /* Nền ĐỎ ĐẬM (Red 800) khi báo động */
+        color: #ffffff;            /* Chữ TRẮNG để nổi bật trên nền đỏ */
+    }
 }
 
 .fire-emergency {
@@ -17,7 +23,7 @@ body {
 
 @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 0.8; }
 }
 
 .pulse-active {
