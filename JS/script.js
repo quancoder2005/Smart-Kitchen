@@ -28,7 +28,7 @@ let audioCtx = null;
 let alarmInterval = null;
 
 function batCoiBaoDongWeb() {
-    if (alarmInterval) return; // Nếu còi đang hú rồi thì bỏ qua không tạo trùng
+    if (alarmInterval !== null) return;
 
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -49,7 +49,7 @@ function batCoiBaoDongWeb() {
         // Hoán đổi tần số giữa 1000Hz và 600Hz liên tục để giả lập còi cứu hỏa
         oscillator.frequency.setValueAtTime(toggle ? 1000 : 600, audioCtx.currentTime);
         toggle = !toggle;
-        
+
         // Thiết lập âm lượng (0.2 tức là 20% âm lượng, tránh bị chói tai khi test)
         gainNode.gain.setValueAtTime(0.7, audioCtx.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
