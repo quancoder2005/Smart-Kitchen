@@ -235,11 +235,14 @@ onValue(controlRef, (snapshot) => {
         updateButtonState("btn-buzzer", "buzzer-icon", "buzzer-icon-bg", data.buzzer_btn, "fa-volume-high", "pulse");
 
         // 3. Cập nhật thanh trượt Servo góc
-        const servoVal = parseInt(data.servo_pos || 0);
-        servoSlider.value = servoVal;
-        document.getElementById("servo-deg-val").innerText = `${servoVal}°`;
+        const firebaseServoVal = parseInt(data.servo_pos || 0);
+        const sliderVal = 180 - firebaseServoVal; // Đảo ngược logic cho thanh slider trên web
+
+        servoSlider.value = sliderVal;
+        document.getElementById("servo-deg-val").innerText = `${sliderVal}°`;
     }
 });
+
 
 // Hàm hỗ trợ đồng bộ trạng thái màu sắc & hiệu ứng chuyển động nút nhấn
 function updateButtonState(btnId, iconId, bgId, state, baseIconClass, effectClass) {
@@ -324,10 +327,15 @@ slider.addEventListener("input", (e) => {
     const value = parseInt(e.target.value);
     document.getElementById("servo-deg-val").innerText = `${value}°`;
 });
+
 slider.addEventListener("change", (e) => {
     const value = parseInt(e.target.value);
-    // Gửi thẳng góc quay lên Firebase khi Quân thả tay kéo
-    updateControl('servo_pos', value);
+    
+    // SỬA TẠI ĐÂY: Lấy 180 trừ đi giá trị slider để quy đổi ngược lại cho mạch ESP32 hiểu
+    const valueGoiFirebase = 180 - value; 
+    
+    // Gửi góc quay đã đảo ngược lên Firebase
+    updateControl('servo_pos', valueGoiFirebase);
 });
 
 // --- CÁC TIỆN ÍCH PHỤ TRỢ (TRẠNG THÁI ONLINE & ĐỒNG HỒ) ---
