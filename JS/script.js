@@ -230,8 +230,8 @@ onValue(controlRef, (snapshot) => {
         }
 
         // 2. Cập nhật trạng thái các nút thiết bị
-        updateButtonState("btn-relay1", "fan-icon", "fan-icon-bg", data.relay1_btn, "fa-fan", "spin");
-        updateButtonState("btn-relay2", "pump-icon", "pump-icon-bg", data.relay2_btn, "fa-faucet-drip", "bounce");
+        updateButtonState("btn-relay1", "fan-icon", "fan-icon-bg", data.relay1_btn, "fa-lightbulb", "pulse"); // Relay 1 là Đèn
+        updateButtonState("btn-relay2", "pump-icon", "pump-icon-bg", data.relay2_btn, "fa-fan", "spin"); // Relay 2 là Quạt
         updateButtonState("btn-buzzer", "buzzer-icon", "buzzer-icon-bg", data.buzzer_btn, "fa-volume-high", "pulse");
 
         // 3. Cập nhật thanh trượt Servo góc
